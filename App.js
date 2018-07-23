@@ -54,9 +54,9 @@ export default class App extends React.Component {
     return (
       <View>
         <TouchableOpacity
-          style={{width:Dimensions.get('window').width, height:30, backgroundColor:'#FFB74D', justifyContent:'center'}}
+          style={styles.serverStatusBar}
           onPress={this.handleStatusBarClick}>
-          <Text style={{fontWeight:'bold', color:'white', textAlign:'center'}}>
+          <Text style={styles.serverStatusBarText}>
             { serverRunning && 'In-app server running. Click to shutdown.' }
             { !serverRunning && 'In-app server not running. Click to start.' }
           </Text>
@@ -71,9 +71,12 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <SafeAreaView style={styles.container}>
           { this.renderAppServerStatusBar() }
-          <WebView
-            style={styles.webView}
-            source={{uri:serverUrl ? `${serverUrl}/ping` : undefined}}/>
+          <View style={styles.webViewContainer}>
+            <Text style={styles.infoText}>React Native Web View { serverUrl && ' - ' + serverUrl + '/ping' } </Text>
+            <WebView
+              style={styles.webView}
+              source={{uri:serverUrl ? `${serverUrl}/ping` : undefined}}/>
+          </View>
         </SafeAreaView>
       </View>
     );
@@ -88,9 +91,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'lightgray',
   },
+  webViewContainer: {
+    flex:1,
+    padding:20
+  },
   webView: {
     flex:1,
-    backgroundColor:'white',
-    margin:10
+    backgroundColor:'white'
+  },
+  infoText: {
+    fontWeight:'bold',
+    paddingBottom:10
+  },
+  serverStatusBar: {
+    width:screenWidth,
+    height:30,
+    backgroundColor:'#FFB74D',
+    justifyContent:'center'
+  },
+  serverStatusBarText: {
+    fontWeight:'bold',
+    color:'white',
+    textAlign:'center'
   }
 });
