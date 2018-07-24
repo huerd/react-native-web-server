@@ -74,5 +74,6 @@ func Start() (string, error) {
 
 func Stop() {
 	config.isRunning = false
+	serverUrl = ""
 	manners.Close()
 }

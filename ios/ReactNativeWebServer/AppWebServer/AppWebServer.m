@@ -17,22 +17,23 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(start:(NSString *)fileDir done:(RCTResponseSenderBlock)callback)
+RCT_REMAP_METHOD(start, fileDir:(NSString *)fileDir startWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   RCTLogInfo(@"AppWebServer Native Moudle - start");
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     WebserverSetConfig(fileDir, true);
     NSError *error = nil;
     NSString* url = WebserverStart(&error);
-    callback(@[url]);
+    error == nil ? resolve(url) : reject(@"start_failed", @"Error starting the server", error);
   });
 }
 
-RCT_EXPORT_METHOD(stop)
+RCT_REMAP_METHOD(stop, stopWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   RCTLogInfo(@"AppWebServer Native Moudle - stop");
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     WebserverStop();
+    resolve(@"true");
   });
 }
 

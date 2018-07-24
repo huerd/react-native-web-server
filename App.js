@@ -47,17 +47,22 @@ export default class App extends React.Component {
     serverRunning ? this.handleServerStop() : this.handleServerStart();
   }
 
-  handleServerStart() {
-    AppWebServer.start(`${RNFS.MainBundlePath}`, serverUrl => {
-      if (serverUrl) {
-        this.setState({serverUrl,serverRunning:true});
-      }
-    });
+  async handleServerStart() {
+    try {
+      const serverUrl = await AppWebServer.start(`${RNFS.MainBundlePath}`)
+      this.setState({serverUrl,serverRunning:true});
+    } catch (ex) {
+      alert(ex);
+    }
   }
 
-  handleServerStop() {
-    AppWebServer.stop();
-    this.setState({serverUrl:'', serverRunning:false});
+  async handleServerStop() {
+    try {
+      await AppWebServer.stop();
+      this.setState({serverUrl:'', serverRunning:false});
+    } catch (ex) {
+      alert(ex);
+    }
   }
 
   renderAppServerStatusBar() {
