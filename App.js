@@ -17,14 +17,25 @@ export default class App extends React.Component {
     this.handleServerStop = this.handleServerStop.bind(this);
     this.renderAppServerStatusBar = this.renderAppServerStatusBar.bind(this);
     this.handleStatusBarClick = this.handleStatusBarClick.bind(this);
+    this.heartbeatCheck = this.heartbeatCheck.bind(this);
+  }
+
+  heartbeatCheck = () => {
+    AppWebServer.isRunning().then(serverRunning => {
+      this.setState({serverRunning: serverRunning === 'true'});
+      if (serverRunning === 'true') {
+        AppWebServer.serverUrl().then(serverUrl => {
+          this.state.serverUrl !== serverUrl && this.setState({serverUrl});
+        });
+      }
+    });
   }
 
   componentDidMount() {
     this.timeoutId = setInterval(() => {
-      AppWebServer.isRunning().then(serverRunning => {
-        this.setState({serverRunning: serverRunning === 'true'});
-      });
+      this.heartbeatCheck();
     }, 1000 * 5);
+    this.heartbeatCheck();
   }
 
   componentWillUnmount() {
