@@ -11,7 +11,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       serverRunning: false,
-      serverUrl: ''
+      serverUrl: '',
+      pingUrl: ''
     }
     this.handleServerStart = this.handleServerStart.bind(this);
     this.handleServerStop = this.handleServerStop.bind(this);
@@ -25,7 +26,7 @@ export default class App extends React.Component {
       this.setState({serverRunning: serverRunning === 'true'});
       if (serverRunning === 'true') {
         AppWebServer.serverUrl().then(serverUrl => {
-          this.state.serverUrl !== serverUrl && this.setState({serverUrl});
+          this.state.serverUrl !== serverUrl && this.setState({serverUrl, pingUrl:`${serverUrl}/ping`});
         });
       }
     });
@@ -50,7 +51,7 @@ export default class App extends React.Component {
   async handleServerStart() {
     try {
       const serverUrl = await AppWebServer.start(`${RNFS.MainBundlePath}`)
-      this.setState({serverUrl,serverRunning:true});
+      this.setState({serverUrl, pingUrl:`${serverUrl}/ping`, serverRunning:true});
     } catch (ex) {
       alert(ex);
     }
@@ -73,8 +74,11 @@ export default class App extends React.Component {
           style={styles.serverStatusBar}
           onPress={this.handleStatusBarClick}>
           <Text style={styles.serverStatusBarText}>
-            { serverRunning && 'In-app server running. Click to shutdown.' }
-            { !serverRunning && 'In-app server not running. Click to start.' }
+            { serverRunning ?
+              'In-app server running. Click to shutdown.'
+                :
+              'In-app server not running. Click to start.'
+            }
           </Text>
         </TouchableOpacity>
       </View>
@@ -82,16 +86,16 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { serverRunning, serverUrl } = this.state;
+    const { serverRunning, serverUrl, pingUrl } = this.state;
     return (
       <View style={styles.container}>
         <SafeAreaView style={styles.container}>
           { this.renderAppServerStatusBar() }
           <View style={styles.webViewContainer}>
-            <Text style={styles.infoText}>React Native Web View { serverUrl && ' - ' + serverUrl + '/ping' } </Text>
+            <Text style={styles.infoText}>React Native Web View { serverUrl && pingUrl } </Text>
             <WebView
               style={styles.webView}
-              source={{uri:serverUrl ? `${serverUrl}/ping` : undefined}}/>
+              source={{uri:serverUrl ? pingUrl : undefined}}/>
           </View>
         </SafeAreaView>
       </View>
