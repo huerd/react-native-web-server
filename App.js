@@ -1,9 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, WebView, NativeModules, Dimensions, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Button, WebView, NativeModules, Dimensions, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 
 var RNFS = require('react-native-fs');
 
 const AppWebServer = NativeModules.AppWebServer;
+
+const IS_ANDROID = Platform.OS === 'android';
+const IS_IOS = Platform.OS === 'ios';
 
 export default class App extends React.Component {
 
@@ -23,8 +26,9 @@ export default class App extends React.Component {
 
   heartbeatCheck = () => {
     AppWebServer.isRunning().then(serverRunning => {
-      this.setState({serverRunning: serverRunning === 'true'});
-      if (serverRunning === 'true') {
+      const running = IS_ANDROID ? serverRunning : serverRunning === 'true';
+      this.setState({serverRunning:running});
+      if (running) {
         AppWebServer.serverUrl().then(serverUrl => {
           this.state.serverUrl !== serverUrl && this.setState({serverUrl, pingUrl:`${serverUrl}/ping`});
         });
