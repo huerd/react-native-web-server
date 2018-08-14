@@ -22,7 +22,7 @@ See here for more details: https://github.com/golang/go/wiki/Mobile
 
 ## Installation
 
-1. Clone the repo at `$GOPATH/src/` or `$HOME/go/src/` 
+1. Clone the repo at `$GOPATH/src/` or `$HOME/go/src/`
 2. `git clone git@github.com:hemantasapkota/react-native-web-server.git`
 3. Grab node modules: `cd react-native-web-server && npm install`
 
@@ -47,6 +47,12 @@ The output of the script is a dynamic framework called `Webserver.framework`. Co
 ```
 mv Webserver.framework ../ios/DerivedData/ReactNativeWebServer/Build/Products/Debug-iphonesimulator
 ```
+
+3. Run the project
+
+![](screenshots/xcode.png)
+
+## Usage
 
 ## Roadmap
 
