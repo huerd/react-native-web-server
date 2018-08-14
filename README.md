@@ -74,8 +74,20 @@ mv Webserver.framework ../ios/DerivedData/ReactNativeWebServer/Build/Products/De
 
 ![](screenshots/xcode.png)
 
-## Package the webserver for Android ( TODO )
+## Package the webserver for Android
+
+```
+cd ../ && cd webserver
+./packagemobile.sh android
+```
+The output of the script is a static android archive file called `webserver.aar`. Copy `webserver.aar` to the libs folder of the andorid project.
+
+```
+mkdir -p ../android/app/libs
+mv webserver.aar webserver-sources.jar ../android/app/libs
+```
 
 ## Roadmap
 
 * Enable integration as a node module for existing react native apps
+* Example apps demonstrating usage
