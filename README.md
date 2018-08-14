@@ -3,6 +3,28 @@ An embeddable dynamic web-server backed by Golang for React Native apps ( IOS & 
 
 ![](https://s3.amazonaws.com/battousai/ReactNativeWebServer.gif)
 
+## Usage
+
+### Basic
+
+```
+// Import the native module
+const AppWebServer = NativeModules.AppWebServer;
+
+// Start the server
+const serverUrl = await AppWebServer.start(`${RNFS.MainBundlePath}`)
+
+// Stop the server
+await AppWebServer.stop()
+
+// Get server url
+await AppWebServer.serverUrl()
+
+// Check if server is running
+const isRunning = (await AppWebServer.isRunning()) === 'true'
+
+```
+
 ## How to use this project
 
 The recommended way is to clone / fork this project and use it as a template for your react native app. See the Installation section below.
@@ -52,7 +74,7 @@ mv Webserver.framework ../ios/DerivedData/ReactNativeWebServer/Build/Products/De
 
 ![](screenshots/xcode.png)
 
-## Usage
+## Package the webserver for Android ( TODO )
 
 ## Roadmap
 
