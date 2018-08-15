@@ -74,12 +74,12 @@ public class AppWebServerModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void serverUrl(final Promise promise) {
-        Log.d("NativeModule", "serverUrl()");
+    public void url(final Promise promise) {
+        Log.d("NativeModule", "url()");
         Task.call(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                return Webserver.serverUrl();
+                return Webserver.url();
             }
         }, Task.BACKGROUND_EXECUTOR).continueWith(new Continuation<String, Object>() {
             @Override

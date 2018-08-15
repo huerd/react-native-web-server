@@ -46,11 +46,11 @@ RCT_REMAP_METHOD(isRunning, isRunningWithResolver:(RCTPromiseResolveBlock)resolv
   });
 }
 
-RCT_REMAP_METHOD(serverUrl, serverUrlWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_REMAP_METHOD(url, serverUrlWithResolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-    NSString* serverUrl = WebserverServerUrl();
-    RCTLogInfo(@"AppWebServer Native Moudle - serverUrl %@", serverUrl);
+    NSString* serverUrl = WebserverUrl();
+    RCTLogInfo(@"AppWebServer Native Moudle - url %@", serverUrl);
     resolve(serverUrl);
   });
 }

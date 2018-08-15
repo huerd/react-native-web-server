@@ -64,11 +64,7 @@ If everything goes well, the first build will fail because of the missing server
 cd ../ && cd webserver
 ./packagemobile.sh ios
 ```
-The output of the script is a dynamic framework called `Webserver.framework`. Copy Webserver.framework to the DerivedData folder using the following command:
-
-```
-mv Webserver.framework ../ios/DerivedData/ReactNativeWebServer/Build/Products/Debug-iphonesimulator
-```
+The output of the script is a dynamic framework called `Webserver.framework`. The script file automatically copies the generated framework to XCode's DerivedData folder.
 
 3. Run the project
 

@@ -29,7 +29,7 @@ export default class App extends React.Component {
       const running = IS_ANDROID ? serverRunning : serverRunning === 'true';
       this.setState({serverRunning:running});
       if (running) {
-        AppWebServer.serverUrl().then(serverUrl => {
+        AppWebServer.url().then(serverUrl => {
           this.state.serverUrl !== serverUrl && this.setState({serverUrl, pingUrl:`${serverUrl}/ping`});
         });
       }
