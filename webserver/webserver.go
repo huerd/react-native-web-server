@@ -22,11 +22,6 @@ var config = serverConfig{
 	fileDir:    "./",
 }
 
-func SetConfig(fileDir string, isEmbedded bool) {
-	config.isEmbedded = isEmbedded
-	config.fileDir = fileDir
-}
-
 func findAvailablePort() (int, error) {
 	addr, err := net.ResolveTCPAddr("tcp", "localhost:0")
 	if err != nil {
@@ -44,14 +39,23 @@ func ping(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Alive!")
 }
 
+// SetConfig
+func SetConfig(fileDir string, isEmbedded bool) {
+	config.isEmbedded = isEmbedded
+	config.fileDir = fileDir
+}
+
+// ServerUrl
 func ServerUrl() string {
 	return serverUrl
 }
 
+// IsRunning
 func IsRunning() bool {
 	return config.isRunning
 }
 
+// Start
 func Start() (string, error) {
 	log.SetPrefix("GO: ")
 	r := mux.NewRouter()
@@ -72,6 +76,7 @@ func Start() (string, error) {
 	return serverUrl, nil
 }
 
+// Stop
 func Stop() {
 	config.isRunning = false
 	serverUrl = ""
