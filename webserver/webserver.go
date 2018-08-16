@@ -46,7 +46,7 @@ func SetConfig(fileDir string, isEmbedded bool) {
 }
 
 // ServerUrl
-func ServerUrl() string {
+func Url() string {
 	return serverUrl
 }
 
