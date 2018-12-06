@@ -2,11 +2,14 @@ package webserver
 
 import (
 	"fmt"
-	"github.com/braintree/manners"
-	"github.com/gorilla/mux"
 	"log"
 	"net"
 	"net/http"
+	"sync"
+	"time"
+
+	"github.com/braintree/manners"
+	"github.com/gorilla/mux"
 )
 
 type serverConfig struct {
@@ -64,20 +67,34 @@ func Start() (string, error) {
 		return "", err
 	}
 	r.HandleFunc("/ping", ping)
+	config.isRunning = true
+	var wg sync.WaitGroup
+	wg.Add(1)
 	go func() {
-		config.isRunning = true
 		log.Printf("Starting a serve: https://localhost:%d/ping\n", port)
 		err := manners.ListenAndServe(fmt.Sprintf(":%d", port), r)
 		if err != nil {
+			wg.Done()
+			config.isRunning = false
 			log.Printf("%v\n", err)
 		}
 	}()
+	for {
+		// Small delay before we check if the server has started
+		_ = time.After(100 * time.Millisecond)
+		if config.isRunning {
+			wg.Done()
+			break
+		}
+	}
+	wg.Wait()
 	serverUrl = fmt.Sprintf("http://localhost:%d", port)
 	return serverUrl, nil
 }
 
 // Stop
 func Stop() {
+	log.Printf("Stopping server...")
 	config.isRunning = false
 	serverUrl = ""
 	manners.Close()
