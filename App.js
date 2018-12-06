@@ -17,11 +17,6 @@ export default class App extends React.Component {
       serverUrl: '',
       pingUrl: ''
     }
-    this.handleServerStart = this.handleServerStart.bind(this);
-    this.handleServerStop = this.handleServerStop.bind(this);
-    this.renderAppServerStatusBar = this.renderAppServerStatusBar.bind(this);
-    this.handleStatusBarClick = this.handleStatusBarClick.bind(this);
-    this.heartbeatCheck = this.heartbeatCheck.bind(this);
   }
 
   heartbeatCheck = () => {
@@ -47,12 +42,12 @@ export default class App extends React.Component {
     clearInterval(this.timeoutId);
   }
 
-  handleStatusBarClick() {
+  handleStatusBarClick = () => {
     const { serverRunning } = this.state;
     serverRunning ? this.handleServerStop() : this.handleServerStart();
   }
 
-  async handleServerStart() {
+  handleServerStart = async () => {
     try {
       const serverUrl = await AppWebServer.start(`${RNFS.MainBundlePath}`)
       this.setState({serverUrl, pingUrl:`${serverUrl}/ping`, serverRunning:true});
@@ -61,7 +56,7 @@ export default class App extends React.Component {
     }
   }
 
-  async handleServerStop() {
+  handleServerStop = async () => {
     try {
       await AppWebServer.stop();
       this.setState({serverUrl:'', serverRunning:false});
@@ -70,7 +65,7 @@ export default class App extends React.Component {
     }
   }
 
-  renderAppServerStatusBar() {
+  renderAppServerStatusBar = () => {
     const { serverRunning } = this.state;
     return (
       <View>
