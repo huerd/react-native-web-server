@@ -36,7 +36,6 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* ReactNativeWebServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ReactNativeWebServerTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
-		2E1975CA2123E97F003D048D /* Webserver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1975C92123E97F003D048D /* Webserver.framework */; };
 		2E9DAAF22101B58A0087441B /* Webserver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E9DAAF12101B5890087441B /* Webserver.framework */; };
 		2E9DAAF62101B5EE0087441B /* AppWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9DAAF52101B5EE0087441B /* AppWebServer.m */; };
 		2E9DAAF72101B5EE0087441B /* AppWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9DAAF52101B5EE0087441B /* AppWebServer.m */; };
@@ -387,7 +386,6 @@
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
-				2E1975CA2123E97F003D048D /* Webserver.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
